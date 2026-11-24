@@ -151,6 +151,29 @@ streamlit run app.py
 <h3>or run in Docker:</h3>
 <pre>docker-compose up --build</pre>
 <hr>
+## ☁️ Deploy to AWS App Runner
+
+The app is deployed as a Docker image on **AWS App Runner** (region `ap-southeast-2`).
+
+Prerequisites:
+- AWS CLI installed and configured (`aws configure`) with permissions for ECR, IAM, CodeBuild and App Runner.
+- The changes pushed to the public GitHub repository.
+
+Deploy / update with one command:
+
+```powershell
+.\deploy\deploy.ps1 -Region ap-southeast-2
+```
+
+The script creates/reuses:
+- an **ECR** repository (`sentiment-analysis`),
+- IAM roles for **CodeBuild** and **App Runner**,
+- a **CodeBuild** project that builds `Dockerfile` from GitHub and pushes the image,
+- an **App Runner** service listening on port `8080` with health check `/_stcore/health`.
+
+It prints the public HTTPS URL of the running service when done.
+
+<hr>
 <h1>Author</h1>
 <h2>Sameer Chauhan</h2>
 <h5>MLOps & Machine Learning Engineer</h5>

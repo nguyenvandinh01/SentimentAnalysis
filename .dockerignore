@@ -1,0 +1,9 @@
+.git
+.github
+venv
+env
+.venv
+__pycache__
+*.pyc
+nltk_data
+*.md
