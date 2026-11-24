@@ -1,12 +1,23 @@
+
+# Python runtime
 FROM python:3.11-slim
 
+# Working directory
 WORKDIR /app
 
+# Copy and install dependencies
 COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy source code and trained models
+COPY dashboard.py .
+COPY src/ ./src/
 
-EXPOSE 8501
+# Cloud Run port
+ENV PORT=8080
 
-CMD ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+EXPOSE 8080
+
+# Start Streamlit
+CMD ["sh", "-c", "streamlit run dashboard.py --server.address=0.0.0.0 --server.port=${PORT} --server.headless=true"]

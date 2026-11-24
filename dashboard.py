@@ -12,11 +12,15 @@ model = joblib.load('src/sentiment_model.pkl')
 vectorizer = joblib.load('src/tfidf_vectorizer.pkl')
 
 # NLTK setup
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('punkt_tab')
+nltk.data.path.append('./nltk_data')
+try:
+    nltk.download('stopwords', quiet=True)
+    nltk.download('punkt', quiet=True)
+    nltk.download('wordnet', quiet=True)
+    nltk.download('omw-1.4', quiet=True)
+    nltk.download('punkt_tab', quiet=True)
+except Exception:
+    pass
 
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
